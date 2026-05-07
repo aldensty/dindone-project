@@ -70,4 +70,32 @@ class ActivityController extends Controller
         Todo::destroy($id);
         return back();
     }
+
+    // CRUD untuk ActivityLog
+    public function show($id)
+    {
+        $log = ActivityLog::findOrFail($id);
+        return response()->json($log);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'title'       => 'required|string|max:255',
+            'description' => 'required',
+            'category'    => 'required',
+            'log_date'    => 'required|date',
+        ]);
+
+        $log = ActivityLog::findOrFail($id);
+        $log->update($validated);
+        return redirect()->route('dashboard', ['menu' => 'activity'])->with('success', 'Activity log berhasil diperbarui!');
+    }
+
+    public function destroy($id)
+    {
+        $log = ActivityLog::findOrFail($id);
+        $log->delete();
+        return redirect()->route('dashboard', ['menu' => 'activity'])->with('success', 'Activity log berhasil dihapus!');
+    }
 }

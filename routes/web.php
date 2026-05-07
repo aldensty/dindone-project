@@ -15,6 +15,11 @@ Route::get('/dashboard', [ActivityController::class, 'index'])->name('dashboard'
 // Route untuk simpan data
 Route::post('/logs', [ActivityController::class, 'store'])->name('logs.store');
 
+// CRUD Routes untuk ActivityLog
+Route::get('/logs/{id}', [ActivityController::class, 'show'])->name('logs.show');
+Route::put('/logs/{id}', [ActivityController::class, 'update'])->name('logs.update');
+Route::delete('/logs/{id}', [ActivityController::class, 'destroy'])->name('logs.destroy');
+
 Route::post('/todo', [ActivityController::class, 'storeTodo'])->name('todo.store');
 Route::patch('/todo/{id}', [ActivityController::class, 'updateTodo'])->name('todo.update');
 Route::delete('/todo/{id}', [ActivityController::class, 'deleteTodo'])->name('todo.delete');
